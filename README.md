@@ -15,8 +15,8 @@ pip install -r requirements.txt # alternatively try pip3
 ```bash
 $ python check_sites_health.py urls.txt
 Checked url info:
-Url https://devman.org... 200 OK checked: PASSED Expiration less than 30 days: PASSED
-Url https://slack.com... 200 OK checked: PASSED Expiration less than 30 days: PASSED
+1 Url https://devman.org... 200 OK checked: PASSED Expiration less than 30 days: PASSED
+2 Url https://slack.com... 200 OK checked: PASSED Expiration less than 30 days: PASSED
 ```
 
 # Project Goals

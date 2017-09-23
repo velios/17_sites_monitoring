@@ -44,7 +44,7 @@ if __name__ == '__main__':
     urls_file = cmd_arguments.file_path
     checked_urls_generator = make_urls4check_generator(urls_file)
     print('Checked url info:')
-    for url in checked_urls_generator:
+    for index, url in enumerate(checked_urls_generator, start=1):
         try:
             is_respond_200 = 'PASSED' if is_server_respond_with_200(url) else 'FAILED'
             is_expiration_less_30_days = 'PASSED' if is_whois_expiration_date_less_n_days(url) else 'FAILED'
@@ -52,8 +52,9 @@ if __name__ == '__main__':
             print('Error: ', err)
         else:
             print(
-                'Url {}... 200 OK checked: {} '
-                'Expiration less than 30 days: {}'.format(url,
+                '{:3} Url {}... 200 OK checked: {} '
+                'Expiration less than 30 days: {}'.format(index,
+                                                          url,
                                                           is_respond_200,
                                                           is_expiration_less_30_days)
             )
