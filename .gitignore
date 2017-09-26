@@ -5,3 +5,5 @@ Scripts/
 Include/
 pip-selfcheck.json
 pyvenv.cfg
+*.txt
+!requirements.txt

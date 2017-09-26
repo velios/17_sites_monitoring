@@ -1,12 +1,12 @@
 from datetime import datetime
 from argparse import ArgumentParser, FileType
-from requests.exceptions import MissingSchema, ConnectionError
 
 import whois
 import requests
+from requests.exceptions import MissingSchema, ConnectionError
 
 
-def make_cmd_arguments_parser():
+def fetch_cmd_arguments():
     parser_description = 'Scripts check response status and expiration date in urls from text file'
     parser = ArgumentParser(description=parser_description)
     parser.add_argument('file_path',
@@ -18,21 +18,18 @@ def make_cmd_arguments_parser():
 def make_urls4check_generator(urls_file):
     with urls_file as file:
         for line in file:
-            if line.rstrip():
-                yield line.rstrip()
+            cleaned_line = line.rstrip()
+            if cleaned_line:
+                yield cleaned_line
 
 
-def is_server_respond_with_200(url):
+def is_server_respond_with_200(url) -> bool:
     with requests.head('{}'.format(url)) as request:
             return request.status_code == requests.codes.ok
 
 
-def get_whois_info(url):
-    return whois.whois(url)
-
-
-def is_whois_expiration_date_less_n_days(url, days=30):
-    whois_info = get_whois_info(url)
+def is_whois_expiration_date_less_n_days(url, days=30) -> bool:
+    whois_info = whois.whois(url)
     whois_expiration_date = whois_info.expiration_date[0]
     today = datetime.now()
     remaining_paid_period_in_days = (whois_expiration_date - today).days
@@ -40,7 +37,7 @@ def is_whois_expiration_date_less_n_days(url, days=30):
 
 
 if __name__ == '__main__':
-    cmd_arguments = make_cmd_arguments_parser()
+    cmd_arguments = fetch_cmd_arguments()
     urls_file = cmd_arguments.file_path
     checked_urls_generator = make_urls4check_generator(urls_file)
     print('Checked url info:')

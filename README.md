@@ -19,6 +19,13 @@ Checked url info:
 2 Url https://slack.com... 200 OK checked: PASSED Expiration less than 30 days: PASSED
 ```
 
+##### File with checked format
+Each url on separate line
+```
+https://devman.org
+https://slack.com
+```
+
 # Project Goals
 
 The code is written for educational purposes. Training course for web-developers - [DEVMAN.org](https://devman.org)
